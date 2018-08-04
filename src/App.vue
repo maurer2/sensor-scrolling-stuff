@@ -1,29 +1,44 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
-  </div>
+  <article class="wrapper">
+    <DummyComponent chars="5" class="section" />
+    <SlideComponent class="section" />
+    <DummyComponent chars="5" class="section" />
+  </article>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import HelloWorld from './components/HelloWorld.vue';
+import DummyComponent from './components/DummyComponent.vue';
+import SlideComponent from './components/SlideComponent.vue';
 
 @Component({
   components: {
-    HelloWorld,
+    DummyComponent, SlideComponent,
   },
 })
 export default class App extends Vue {}
 </script>
 
 <style lang="scss">
-#app {
+html {
+  margin: 0;
+  background: black;
+}
+
+body {
+  margin: 0;
+  padding: 0;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
+
+.wrapper {
+  max-width: 480px;
+  margin: auto;
+  background: #fff;
+}
+
+.section {}
 </style>
