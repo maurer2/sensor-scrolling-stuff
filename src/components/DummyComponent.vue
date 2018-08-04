@@ -10,7 +10,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component
 export default class DummyComponent extends Vue {
-  @Prop({ default: 0 }) private chars: number;
+  @Prop({ default: 0 }) private chars!: number;
 
   private textSample = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
    ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
@@ -18,8 +18,7 @@ export default class DummyComponent extends Vue {
    fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
    anim id est laborum.`;
 
-  // computed
-  get dummyText () {
+  get dummyText() {
       return this.textSample.repeat(this.chars);
   }
 }
