@@ -1,31 +1,31 @@
 <template>
-  <section class="slide-container" @pointerdown="pointerDown"  @pointerup="pointerUp" @pointermove="pointerMove">
-    <figure class="slide-inner">
-      <img src="../assets/cat-small.jpg" alt="cat" class="slide-background slide-background--is-slideable">
+  <section class="slide-container" @pointerdown="activatePointer" @pointerup="deactivatePointer"
+           @pointermove="pointerMove" @pointerleave="deactivatePointer" >
+    <figure class="slide-inner" ref="image">
+      <img src="../assets/cat-small.jpg" alt="background-image" class="slide-background slide-background--is-slideable"
+        :style="styleAttribute">
       <figcaption class="slide-content">
-        Captions
+        Caption
       </figcaption>
     </figure>
   </section>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
 
 @Component
 export default class SlideComponent extends Vue {
   private pointerIsDown: boolean = false;
-  private startPositionX: number = 0;
-  private imageWidth: number = 960;
+  private currentPositionInPercent: number = 0;
 
-  private pointerDown(event: PointerEvent) {
+  private activatePointer() {
     this.pointerIsDown = true;
-    this.startPositionX = event.pageX;
   }
 
-  private pointerUp() {
-    this.pointerIsDown = false;
-    this.startPositionX = 0;
+  private deactivatePointer() {
+    this.pointerIsDown = true;
+    this.currentPositionInPercent = 0;
   }
 
   private pointerMove(event: PointerEvent) {
@@ -33,13 +33,20 @@ export default class SlideComponent extends Vue {
       return;
     }
 
-    const delta = this.startPositionX - event.pageX;
-    const percentage = Math.round((this.imageWidth) / delta);
+    const element = this.$refs.image as HTMLElement;
+    const boundingBox = element.getBoundingClientRect();
 
-    // const x = 0;
-    // const newTransformX = x + event.pageX;
+    const width = boundingBox.width;
+    const offsetX = boundingBox.left;
+    const pointerX = event.x;
 
-    // console.log(percentage);
+    this.currentPositionInPercent = Math.round((pointerX - offsetX) * 100 / width);
+  }
+
+  get styleAttribute() {
+    return {
+      transform: `translateX(${this.currentPositionInPercent}%)`,
+    };
   }
 }
 </script>
@@ -65,12 +72,14 @@ export default class SlideComponent extends Vue {
   pointer-events: none;
 
   &--is-slideable {
-    $width: 200%;
+    $width: 150%;
     $overflow-width: $width - 100%;
 
     width: $width;
-    transform: translateX(#{($overflow-width / 4) * -1});
-    transform-origin: 50% 50%;
+    margin-left: ($overflow-width / 2) * -1;
+    margin-right: ($overflow-width / 2) * -1;
+    transform: translateX(0%);
+    will-change: transform;
   }
 }
 
@@ -80,6 +89,6 @@ export default class SlideComponent extends Vue {
   right: 1rem;
   bottom: 1rem;
   text-align: center;
-  background: beige;
+  background: #fff;
 }
 </style>
