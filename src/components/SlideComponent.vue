@@ -14,34 +14,33 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component
 export default class SlideComponent extends Vue {
- pointerIsDown: boolean = false;
- startPositionX: number = 0;
- imageWidth: number = 960;
+  private pointerIsDown: boolean = false;
+  private startPositionX: number = 0;
+  private imageWidth: number = 960;
 
- pointerDown(event) {
-     this.pointerIsDown = true;
-     this.startPositionX = event.pageX;
-
- }
-
-  pointerUp() {
-      this.pointerIsDown = false;
-      this.startPositionX = 0;
+  private pointerDown(event: PointerEvent) {
+    this.pointerIsDown = true;
+    this.startPositionX = event.pageX;
   }
 
- pointerMove(event) {
-     if (!this.pointerIsDown) {
-         return
-     }
+  private pointerUp() {
+    this.pointerIsDown = false;
+    this.startPositionX = 0;
+  }
 
-     const delta = this.startPositionX - event.pageX;
-     const percentage = Math.round((this.imageWidth) / delta);
+  private pointerMove(event: PointerEvent) {
+    if (!this.pointerIsDown) {
+      return;
+    }
 
-     // const x = 0;
-     // const newTransformX = x + event.pageX;
+    const delta = this.startPositionX - event.pageX;
+    const percentage = Math.round((this.imageWidth) / delta);
 
-     console.log(percentage);
- }
+    // const x = 0;
+    // const newTransformX = x + event.pageX;
+
+    // console.log(percentage);
+  }
 }
 </script>
 

@@ -1,8 +1,8 @@
 <template>
   <article class="wrapper">
-    <DummyComponent chars="3" class="section" />
+    <DummyComponent chars="666" class="section" />
     <SlideComponent class="section" />
-    <DummyComponent chars="3" class="section" />
+    <DummyComponent chars="999" class="section" />
   </article>
 </template>
 
