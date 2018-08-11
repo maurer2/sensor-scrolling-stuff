@@ -1,9 +1,8 @@
 <template>
-  <section class="slide-container" @pointerdown="activatePointer" @pointerup="deactivatePointer"
-           @pointermove="pointerMove" @pointerleave="deactivatePointer" >
-    <figure class="slide-inner" ref="image">
-      <img src="../assets/cat-small.jpg" alt="background-image" class="slide-background slide-background--is-slideable"
-        :style="styleAttribute">
+  <section class="slide-wrapper" @pointerdown="activatePointer" @pointerup="deactivatePointer"
+           @pointermove="pointerMove" @pointerleave="deactivatePointer">
+    <figure class="slide" :style="styleAttribute" ref="slide">
+      <img src="../assets/cat-small.jpg" alt="background-image" class="slide-background slide-background--is-slideable" ref="image">
       <figcaption class="slide-content">
         Caption
       </figcaption>
@@ -17,7 +16,7 @@ import { Component, Vue } from 'vue-property-decorator';
 @Component
 export default class SlideComponent extends Vue {
   private pointerIsDown: boolean = false;
-  private currentPositionInPercent: number = 0;
+  private translateX: number = 0;
 
   private activatePointer() {
     this.pointerIsDown = true;
@@ -25,7 +24,7 @@ export default class SlideComponent extends Vue {
 
   private deactivatePointer() {
     this.pointerIsDown = true;
-    this.currentPositionInPercent = 0;
+    // this.translateX = 0;
   }
 
   private pointerMove(event: PointerEvent) {
@@ -33,36 +32,56 @@ export default class SlideComponent extends Vue {
       return;
     }
 
-    const element = this.$refs.image as HTMLElement;
-    const boundingBox = element.getBoundingClientRect();
+    const container = this.$refs.slide as HTMLElement;
+    const image = this.$refs.image as HTMLElement;
 
-    const width = boundingBox.width;
-    const offsetX = boundingBox.left;
+    const boundingBoxContainer = container.getBoundingClientRect();
+    const width = boundingBoxContainer.width;
+    const offsetLeft = container.offsetLeft;
+
+    const boundingBoxImage = container.getBoundingClientRect();
+    const imageSize = boundingBoxImage.width;
+    const overflowSize = Math.abs(image.offsetLeft);
+
     const pointerX = event.x;
 
-    this.currentPositionInPercent = Math.round((pointerX - offsetX) * 100 / width);
+    const currentPositionInPercent = Math.round((pointerX - offsetLeft) * 100 / width);
+    const maxTransformX = Math.round(overflowSize * 100 / width);
+
+    this.translateX = Math.min(currentPositionInPercent, maxTransformX);
+
+    /*
+    if (currentPositionInPercent < 0) {
+      this.translateX = Math.max(currentPositionInPercent, maxTransformX);
+    }
+    */
+
+    console.log(this.translateX);
   }
 
   get styleAttribute() {
     return {
-      transform: `translateX(${this.currentPositionInPercent}%)`,
+      transform: `translateX(${this.translateX}%)`,
     };
   }
 }
 </script>
 
 <style scoped lang="scss">
-.slide-container {
+.slide-wrapper {
   margin: 2rem 0;
   padding: 0;
   background: aliceblue;
   overflow: hidden;
 }
 
-.slide-inner {
+.slide {
   position: relative;
   margin: 0;
   padding: 0;
+  transform: translateX(0);
+  will-change: transform;
+  touch-action: none;
 }
 
 .slide-background {
@@ -78,8 +97,6 @@ export default class SlideComponent extends Vue {
     width: $width;
     margin-left: ($overflow-width / 2) * -1;
     margin-right: ($overflow-width / 2) * -1;
-    transform: translateX(0%);
-    will-change: transform;
   }
 }
 
