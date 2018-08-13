@@ -39,6 +39,4 @@ body {
   margin: auto;
   background: #fff;
 }
-
-.section {}
 </style>

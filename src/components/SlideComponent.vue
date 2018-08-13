@@ -23,13 +23,12 @@ export default class SlideComponent extends Vue {
   }
 
   private deactivatePointer() {
-    this.pointerIsDown = true;
-    // this.translateX = 0;
+    this.pointerIsDown = false;
   }
 
   private pointerMove(event: PointerEvent) {
     if (!this.pointerIsDown) {
-      return;
+      return
     }
 
     const container = this.$refs.slide as HTMLElement;
@@ -39,24 +38,18 @@ export default class SlideComponent extends Vue {
     const width = boundingBoxContainer.width;
     const offsetLeft = container.offsetLeft;
 
-    const boundingBoxImage = container.getBoundingClientRect();
-    const imageSize = boundingBoxImage.width;
     const overflowSize = Math.abs(image.offsetLeft);
 
     const pointerX = event.x;
 
     const currentPositionInPercent = Math.round((pointerX - offsetLeft) * 100 / width);
     const maxTransformX = Math.round(overflowSize * 100 / width);
+    const elongationFromCenterAbsolute = (currentPositionInPercent - 50) * 2;
 
-    this.translateX = Math.min(currentPositionInPercent, maxTransformX);
+    //slightly long variable name
+    const elongationFromCenterMappedToOverflowSize = (maxTransformX * elongationFromCenterAbsolute) / 100;
 
-    /*
-    if (currentPositionInPercent < 0) {
-      this.translateX = Math.max(currentPositionInPercent, maxTransformX);
-    }
-    */
-
-    console.log(this.translateX);
+    this.translateX = elongationFromCenterMappedToOverflowSize;
   }
 
   get styleAttribute() {
