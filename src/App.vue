@@ -3,6 +3,8 @@
     <DummyComponent chars="666" class="section" />
     <SlideComponent class="section" />
     <DummyComponent chars="999" class="section" />
+    <SensorSlideComponent class="section" />
+    <DummyComponent chars="5000" class="section" />
   </article>
 </template>
 
@@ -10,10 +12,11 @@
 import { Component, Vue } from 'vue-property-decorator';
 import DummyComponent from './components/DummyComponent.vue';
 import SlideComponent from './components/SlideComponent.vue';
+import SensorSlideComponent from './components/SensorSlideComponent.vue';
 
 @Component({
   components: {
-    DummyComponent, SlideComponent,
+    DummyComponent, SlideComponent, SensorSlideComponent,
   },
 })
 export default class App extends Vue {}
