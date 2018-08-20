@@ -27,4 +27,8 @@ export default class DummyComponent extends Vue {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+  .dummy-content {
+    padding: 0 1rem;
+  }
+</style>

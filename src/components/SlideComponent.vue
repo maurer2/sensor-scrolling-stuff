@@ -4,7 +4,7 @@
     <figure class="slide" :style="styleAttribute" ref="slide">
       <img src="../assets/cat-small.jpg" alt="background-image" class="slide-background slide-background--is-slideable" ref="image">
       <figcaption class="slide-content">
-        Caption
+        Meow!
       </figcaption>
     </figure>
   </section>
@@ -75,6 +75,7 @@ export default class SlideComponent extends Vue {
   transform: translateX(0);
   will-change: transform;
   touch-action: none;
+  user-select: none;
 }
 
 .slide-background {
