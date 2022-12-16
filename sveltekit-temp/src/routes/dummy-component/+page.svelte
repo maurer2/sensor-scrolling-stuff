@@ -2,4 +2,4 @@
 
 </script>
 
-<h1>Home</h1>
+<h2>Dummy component</h2>
