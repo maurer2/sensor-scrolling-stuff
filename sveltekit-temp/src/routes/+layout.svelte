@@ -1,4 +1,7 @@
 <script lang="ts">
+  import "../app.postcss";
+  import { page } from '$app/stores';
+
   // import { page } from '$app/stores';
   const routesAndFiles = import.meta.glob('./**/*.svelte');
 
@@ -9,16 +12,17 @@
     .replace('./', '/')
   );
 
-  console.log(routes)
 </script>
 
-<nav>
-  {#each routes as route}
-    <a href="{route}">
-      {route === '/' ? '/Home' : route}
-    </a>
-  {/each}
-
-</nav>
-
-<slot></slot>
+<div class="container h-screen ml-auto mr-auto bg-gray-100">
+  <nav class="bg-gray-300 grid grid-flow-col auto-cols-max">
+    {#each routes as route}
+      <a class="p-4" href="{route}" class:text-blue-500="{$page.url.pathname === route}">
+        {route === '/' ? '/Home' : route}
+      </a>
+    {/each}
+  </nav>
+  <main class="p-4">
+    <slot></slot>
+  </main>
+</div>
