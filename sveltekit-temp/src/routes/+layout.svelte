@@ -14,15 +14,15 @@
 
 </script>
 
-<div class="container h-screen ml-auto mr-auto bg-gray-100">
-  <nav class="bg-gray-300 grid grid-flow-col auto-cols-max">
+<div class="h-screen bg-black">
+  <nav class="bg-gray-300 flex flex-wrap justify-center sticky top-0">
     {#each routes as route}
-      <a class="p-4" href="{route}" class:text-blue-500="{$page.url.pathname === route}">
-        {route === '/' ? '/Home' : route}
+      <a class="p-4 flex-none capitalize" href="{route}" class:text-blue-500="{$page.url.pathname === route}">
+        {route === '/' ? 'Home' : route.slice(1, -1)}
       </a>
     {/each}
   </nav>
-  <main class="p-4">
+  <main class="w-[480px] ml-auto mr-auto p-4 bg-white">
     <slot></slot>
   </main>
 </div>
