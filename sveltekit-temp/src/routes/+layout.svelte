@@ -22,7 +22,7 @@
       </a>
     {/each}
   </nav>
-  <main class="w-[480px] ml-auto mr-auto p-4 bg-white">
+  <main class="w-[480px] ml-auto mr-auto mt-8 p-4 bg-white">
     <slot></slot>
   </main>
 </div>
