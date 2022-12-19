@@ -2,10 +2,11 @@
   import { faker } from '@faker-js/faker';
   import { onMount } from 'svelte';
 
+  let containerElement;
+  let imageElement;
+
   let pointerIsDown;
-  let translateX = 0;
-  let container;
-  let image;
+  let translateX = 0; // todo make reactive
 
   function activatePointer(): void {
     pointerIsDown = true;
@@ -20,12 +21,10 @@
       return
     }
 
-    const boundingBoxContainer = container.getBoundingClientRect();
-    const width = boundingBoxContainer.width;
-    const offsetLeft = container.offsetLeft;
+    const { width } = containerElement.getBoundingClientRect();
+    const { offsetLeft } = containerElement;
 
-    const overflowSize = Math.abs(image.offsetLeft);
-
+    const overflowSize = Math.abs(imageElement.offsetLeft);
     const pointerX = event.x;
 
     const currentPositionInPercent = Math.round((pointerX - offsetLeft) * 100 / width);
@@ -33,6 +32,7 @@
     const elongationFromCenterAbsolute = (currentPositionInPercent - 50) * 2;
 
     const elongationFromCenterMappedToOverflowSize = (maxTransformX * elongationFromCenterAbsolute) / 100;
+
     translateX = elongationFromCenterMappedToOverflowSize;
   }
 
@@ -46,13 +46,20 @@
     on:pointerup={deactivatePointer}
     on:pointermove={pointerMove}
     on:pointerleave={deactivatePointer}
+    style="--translateX: {translateX}%"
   >
-    <figure bind:this={container} class="relative select-none touch-none" style="translate: {translateX}% 0;">
-      <img src={faker.image.cats(960, 640, false)} bind:this={image} class="w-[150%] ml-[-25%] mr-[-25%] max-w-none pointer-events-none" alt="Cat">
+    <figure
+      bind:this={containerElement}
+      class="relative select-none touch-none transform-gpu translate-x-[var(--translateX)]"
+    >
+      <img
+        bind:this={imageElement}
+        class="w-[150%] ml-[-25%] mr-[-25%] max-w-none pointer-events-none"
+        src={faker.image.cats(800, 600, false)}
+        alt="Cat">
       <figcaption class="absolute inset-x-4 bottom-4 text-center bg-white">
         Meow!
       </figcaption>
     </figure>
   </div>
-
 </section>
