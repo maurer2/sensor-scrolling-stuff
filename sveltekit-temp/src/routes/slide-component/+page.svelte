@@ -1,6 +1,5 @@
 <script lang="ts">
   import { faker } from '@faker-js/faker';
-  import { onMount } from 'svelte';
 
   let containerElement;
   let imageElement;
@@ -40,7 +39,7 @@
 
 <section>
   <h2 class="text-xl pb-4">Slide component</h2>
-  <p class="pb-4">{faker.lorem.lines()}</p>
+  <p class="pb-4">Drag left and right</p>
   <div class="m-0 p-0 overflow-hidden"
     on:pointerdown={activatePointer}
     on:pointerup={deactivatePointer}
