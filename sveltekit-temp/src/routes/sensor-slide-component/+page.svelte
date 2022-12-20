@@ -27,8 +27,8 @@
 
 <section>
   <h2 class="text-xl pb-4">Sensor slide component</h2>
-  <p class="pb-4">Rotation around the y-axis</p>
-  <div class="m-0 p-0 overflow-hidden"
+  <p class="pb-8">Rotation around the y-axis</p>
+  <div class="-m-4 p-0 overflow-hidden"
     style="--translateX: {translateX}%"
   >
     <figure

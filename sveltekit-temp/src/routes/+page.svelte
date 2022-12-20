@@ -2,6 +2,6 @@
 
 </script>
 
-<h1 class="font-bold">
+<h1 class="text-xl font-bold">
   Home
 </h1>

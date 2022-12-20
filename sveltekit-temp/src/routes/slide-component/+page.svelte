@@ -39,8 +39,8 @@
 
 <section>
   <h2 class="text-xl pb-4">Slide component</h2>
-  <p class="pb-4">Drag left and right</p>
-  <div class="m-0 p-0 overflow-hidden"
+  <p class="pb-8">Drag left and right</p>
+  <div class="-m-4 p-0 overflow-hidden"
     on:pointerdown={activatePointer}
     on:pointerup={deactivatePointer}
     on:pointermove={pointerMove}
