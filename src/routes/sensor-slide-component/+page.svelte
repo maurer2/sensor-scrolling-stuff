@@ -6,7 +6,7 @@
 
   let translateX = 0; // todo make reactive
 
-  function orientationChang(event): void {
+  function orientationChange(event): void {
     const rotationX = event.alpha; // y-axis
 
     const { width } = containerElement.getBoundingClientRect();
@@ -23,7 +23,7 @@
 
 </script>
 
-<svelte:window on:deviceorientation={orientationChang}/>
+<svelte:window on:deviceorientation={orientationChange}/>
 
 <section>
   <h2 class="text-xl pb-4">Sensor slide component</h2>
