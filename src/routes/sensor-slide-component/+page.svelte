@@ -1,8 +1,8 @@
 <script lang="ts">
   import { faker } from '@faker-js/faker';
 
-  let containerElement;
-  let imageElement;
+  let containerElement: HTMLElement;
+  let imageElement: HTMLElement;
 
   let translateX = 0; // todo make reactive
 

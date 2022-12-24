@@ -1,10 +1,10 @@
 <script lang="ts">
   import { faker } from '@faker-js/faker';
 
-  let containerElement;
-  let imageElement;
+  let containerElement: HTMLElement;
+  let imageElement: HTMLElement;
 
-  let pointerIsDown;
+  let pointerIsDown: boolean;
   let translateX = 0; // todo make reactive
   let transitionDuration = 0;
 
@@ -18,7 +18,7 @@
     transitionDuration = 500;
   }
 
-  function pointerMove(event): void {
+  function pointerMove(event: PointerEvent): void {
     if (!pointerIsDown) {
       return
     }
